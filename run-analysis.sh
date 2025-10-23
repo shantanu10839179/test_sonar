@@ -22,8 +22,8 @@ fi
 
 # Check if project key is provided
 if [ -z "$SONAR_PROJECT_KEY" ]; then
-    echo "SONAR_PROJECT_KEY not set. Using default: python-demo-project"
-    export SONAR_PROJECT_KEY="python-demo-project"
+    echo "SONAR_PROJECT_KEY not set. Using default: shantanu10839179_test_sonar"
+    export SONAR_PROJECT_KEY="shantanu10839179_test_sonar"
 fi
 
 echo "Running SonarQube analysis..."

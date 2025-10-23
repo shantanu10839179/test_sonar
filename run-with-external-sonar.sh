@@ -5,7 +5,7 @@
 # Default values
 SONAR_URL="${SONAR_HOST_URL:-http://host.docker.internal:9000}"
 SONAR_TOKEN="${SONAR_TOKEN:-admin}"
-PROJECT_KEY="${SONAR_PROJECT_KEY:-python-demo-project}"
+PROJECT_KEY="${SONAR_PROJECT_KEY:-shantanu10839179_test_sonar}"
 
 echo "=== Python SonarQube Analysis ==="
 echo "SonarQube URL: $SONAR_URL"

@@ -29,8 +29,8 @@ else:
 
 SONAR_PROJECTS = [
     {
-        'project_key': 'shantanu10839179_github-actions-lab',
-        'repo_name': 'shantanu10839179/github-actions-lab'
+        'project_key': 'shantanu10839179_test_sonar',
+        'repo_name': 'shantanu10839179/test_sonar'
     }
     # Add more projects here as needed
 ]

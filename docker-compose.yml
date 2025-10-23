@@ -24,7 +24,7 @@ services:
     environment:
       - SONAR_HOST_URL=http://sonarqube:9000
       - SONAR_TOKEN=admin
-      - SONAR_PROJECT_KEY=python-demo-project
+      - SONAR_PROJECT_KEY=shantanu10839179_test_sonar
     networks:
       - sonar-network
     # Override CMD to wait for SonarQube to be ready
@@ -38,7 +38,7 @@ services:
         echo 'SonarQube is up - running analysis'
         pytest --cov=. --cov-report=xml:coverage.xml --junitxml=test-results.xml &&
         sonar-scanner \
-          -Dsonar.projectKey=python-demo-project \
+          -Dsonar.projectKey=shantanu10839179_test_sonar \
           -Dsonar.host.url=http://sonarqube:9000 \
           -Dsonar.login=admin
       "

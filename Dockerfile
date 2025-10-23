@@ -24,9 +24,9 @@ COPY . .
 CMD pytest --cov=. --cov-report=xml:coverage.xml --junitxml=test-results.xml && \
     echo "Tests completed successfully!" && \
     echo "SonarQube URL: ${SONAR_HOST_URL:-http://host.docker.internal:9000}" && \
-    echo "Project Key: ${SONAR_PROJECT_KEY:-python-demo-project}" && \
+    echo "Project Key: ${SONAR_PROJECT_KEY:-shantanu10839179_test_sonar}" && \
     sonar-scanner \
-      -Dsonar.projectKey=${SONAR_PROJECT_KEY:-python-demo-project} \
+      -Dsonar.projectKey=${SONAR_PROJECT_KEY:-shantanu10839179_test_sonar} \
       -Dsonar.host.url=${SONAR_HOST_URL:-http://host.docker.internal:9000} \
       -Dsonar.login=${SONAR_TOKEN:-admin} || \
     echo "SonarQube analysis failed - this is expected if SonarQube server is not running"
