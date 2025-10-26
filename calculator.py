@@ -143,6 +143,12 @@ def process_numbers(numbers: List[float]) -> dict:
         "max": max(numbers)
     }
 
+# Add this to any Python file in the repo
+def unused_function():
+    pass
+
+a = 1  # Unused variable (SonarCloud will flag this)
+
 
 # This function intentionally has some code smells for SonarQube to detect
 def problematic_function(data):

@@ -1,0 +1,129 @@
+{
+  "uid": "sonarqube_dashboard",
+  "title": "SonarQube Metrics Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 30,
+  "version": 1,
+  "refresh": "1m",
+  "templating": {
+    "list": [
+      {
+        "name": "repo",
+        "type": "query",
+        "datasource": "cf1wcvvbfak8wd",
+        "refresh": 1,
+        "query": "SELECT DISTINCT repo_name FROM sonarqube_results",
+        "multi": true,
+        "includeAll": true
+      }
+    ]
+  },
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Code Coverage Trend",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT analysis_date AS \"time\", coverage::float FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Open Bugs Trend",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT analysis_date AS \"time\", bugs::int FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date ASC;",
+          "format": "time_series",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Vulnerabilities Trend",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT analysis_date AS \"time\", vulnerabilities::int FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date ASC;",
+          "format": "time_series",
+          "refId": "C"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Code Smells Trend",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT analysis_date AS \"time\", code_smells::int FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date ASC;",
+          "format": "time_series",
+          "refId": "D"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 }
+    },
+    {
+      "type": "stat",
+      "title": "Reliability Rating",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT reliability_rating::float FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "E"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 16, "w": 4, "h": 4 }
+    },
+    {
+      "type": "stat",
+      "title": "Security Rating",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT security_rating::float FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "F"
+        }
+      ],
+      "gridPos": { "x": 4, "y": 16, "w": 4, "h": 4 }
+    },
+    {
+      "type": "stat",
+      "title": "Maintainability Rating",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT maintainability_rating::float FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "G"
+        }
+      ],
+      "gridPos": { "x": 8, "y": 16, "w": 4, "h": 4 }
+    },
+    {
+      "type": "stat",
+      "title": "Technical Debt (min)",
+      "datasource": { "type": "grafana-postgresql-datasource", "uid": "cf1wcvvbfak8wd" },
+      "targets": [
+        {
+          "rawSql": "SELECT technical_debt_minutes FROM sonarqube_results WHERE repo_name IN (${repo:sqlstring}) ORDER BY analysis_date DESC LIMIT 1;",
+          "format": "table",
+          "refId": "H"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 16, "w": 4, "h": 4 }
+    }
+  ],
+  "time": { "from": "now-30d", "to": "now" },
+  "annotations": { "list": [] }
+}

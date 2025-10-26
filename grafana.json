@@ -1,0 +1,139 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1620000000000,
+  "panels": [
+    {
+      "id": 1,
+      "title": "SonarQube Coverage Over Time",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "timeseries",
+      "targets": [
+        {
+          "rawSql": "SELECT analysis_date AS \"time\", coverage FROM sonarqube_results WHERE $__timeFilter(analysis_date) AND project_key = 'shantanu10839179_test_sonar' ORDER BY analysis_date ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "id": 2,
+      "title": "SonarQube Bugs Over Time",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "timeseries",
+      "targets": [
+        {
+          "rawSql": "SELECT analysis_date AS \"time\", bugs FROM sonarqube_results WHERE $__timeFilter(analysis_date) AND project_key = 'shantanu10839179_test_sonar' ORDER BY analysis_date ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+    },
+    {
+      "id": 3,
+      "title": "Total Commits",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "stat",
+      "targets": [
+        {
+          "rawSql": "SELECT COUNT(*) FROM commit_details WHERE $__timeFilter(commit_date);",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 8 }
+    },
+    {
+      "id": 4,
+      "title": "Commits Per Day",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "barchart",
+      "targets": [
+        {
+          "rawSql": "SELECT date_trunc('day', commit_date) AS \"time\", COUNT(*) AS commits FROM commit_details WHERE $__timeFilter(commit_date) GROUP BY \"time\" ORDER BY \"time\" ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 6, "y": 8 }
+    },
+    {
+      "id": 5,
+      "title": "Builds Per Day",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "barchart",
+      "targets": [
+        {
+          "rawSql": "SELECT date_trunc('day', build_time) AS \"time\", COUNT(*) AS builds FROM pipeline_builds WHERE $__timeFilter(build_time) GROUP BY \"time\" ORDER BY \"time\" ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 }
+    },
+    {
+      "id": 6,
+      "title": "Releases Per Day",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "barchart",
+      "targets": [
+        {
+          "rawSql": "SELECT date_trunc('day', release_time) AS \"time\", COUNT(*) AS releases FROM pipeline_releases WHERE $__timeFilter(release_time) GROUP BY \"time\" ORDER BY \"time\" ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 }
+    },
+    {
+      "id": 7,
+      "title": "Open Pull Requests",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "stat",
+      "targets": [
+        {
+          "rawSql": "SELECT COUNT(*) FROM pr_details WHERE state = 'open';",
+          "format": "table",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 24 }
+    },
+    {
+      "id": 8,
+      "title": "Merged Pull Requests Per Day",
+      "datasource": { "type": "postgres", "uid": "cf1wcvvbfak8wd" },
+      "type": "barchart",
+      "targets": [
+        {
+          "rawSql": "SELECT date_trunc('day', merged_at) AS \"time\", COUNT(*) AS merged_prs FROM pr_details WHERE state = 'merged' AND $__timeFilter(merged_at) GROUP BY \"time\" ORDER BY \"time\" ASC;",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": { "defaults": {}, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 6, "y": 24 }
+    }
+  ],
+  "schemaVersion": 41,
+  "style": "dark",
+  "tags": [],
+  "templating": { "list": [] },
+  "time": { "from": "now-30d", "to": "now" },
+  "timezone": "browser",
+  "title": "DevOps & SonarQube Metrics Dashboard",
+  "uid": null,
+  "version": 1
+}
